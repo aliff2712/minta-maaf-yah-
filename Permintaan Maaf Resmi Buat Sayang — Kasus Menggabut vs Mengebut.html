@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Permintaan Maaf Resmi Buat Sayang — Kasus Menggabut vs Mengebut</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            oat: '#FBF8F3',
+            linen: '#F3ECE1',
+            sand: '#E6DEC8',
+            espresso: '#2C2520',
+            cocoa: '#6E6259',
+            terracotta: '#C8765A',
+            terracottaDark: '#B06045',
+            terracottaLight: '#F6E7E1',
+            sage: '#6E8B7B',
+            sageLight: '#E7EFEA',
+            butter: '#E8C574',
+            butterLight: '#FAF1D8',
+            blush: '#DF9A8C'
+          },
+          fontFamily: {
+            serif: ['"Fraunces"', 'Georgia', 'serif'],
+            sans: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #FBF8F3;
+      color: #2C2520;
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      overflow-x: hidden;
+      background-image: radial-gradient(#E6DEC8 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    /* Paper texture card style */
+    .paper-card {
+      background-color: #FFFFFF;
+      border: 1.5px solid #E2D9C5;
+      box-shadow: 0 8px 24px -6px rgba(44, 37, 32, 0.07), 0 4px 0px #E2D9C5;
+    }
+    .paper-card-soft {
+      background-color: #FBF8F3;
+      border: 1.5px solid #E2D9C5;
+    }
+    .tactile-btn {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-color 0.2s ease;
+      box-shadow: 0 4px 0px #8F4A32;
+    }
+    .tactile-btn:active {
+      transform: translateY(3px);
+      box-shadow: 0 1px 0px #8F4A32;
+    }
+    .tactile-btn-secondary {
+      transition: transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.15s ease, background-color 0.2s ease;
+      box-shadow: 0 3px 0px #D5CBB4;
+    }
+    .tactile-btn-secondary:active {
+      transform: translateY(2px);
+      box-shadow: 0 1px 0px #D5CBB4;
+    }
+    /* Step transitions */
+    .step-section {
+      display: none;
+      animation: stepEnter 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .step-section.active {
+      display: block;
+    }
+    @keyframes stepEnter {
+      0% {
+        opacity: 0;
+        transform: translateY(18px) scale(0.98);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
+    }
+    @keyframes waveFlag {
+      0%, 100% { transform: rotate(-6deg); }
+      50% { transform: rotate(8deg); }
+    }
+    @keyframes scooterBounce {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-3px); }
+    }
+    @keyframes speedLines {
+      0% { transform: translateX(12px); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateX(-18px); opacity: 0; }
+    }
+    @keyframes shakeCard {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-6px) rotate(-1deg); }
+      40% { transform: translateX(6px) rotate(1deg); }
+      60% { transform: translateX(-4px); }
+      80% { transform: translateX(4px); }
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8) translateY(10px); }
+      70% { transform: scale(1.03) translateY(-2px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    @keyframes pulseSoft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.04); }
+    }
+    .animate-float {
+      animation: floatSlow 3.5s ease-in-out infinite;
+    }
+    .animate-flag {
+      transform-origin: bottom left;
+      animation: waveFlag 1.8s ease-in-out infinite;
+    }
+    .animate-scooter {
+      animation: scooterBounce 0.35s ease-in-out infinite;
+    }
+    .animate-speed {
+      animation: speedLines 0.6s linear infinite;
+    }
+    .animate-pop {
+      animation: popIn 0.38s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    .animate-pulse-soft {
+      animation: pulseSoft 2.2s ease-in-out infinite;
+    }
+    .shake-trigger {
+      animation: shakeCard 0.38s ease-in-out;
+    }
+    /* Custom floating text particle */
+    .floating-word {
+      position: absolute;
+      pointer-events: none;
+      animation: floatUpFade 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 30;
+    }
+    @keyframes floatUpFade {
+      0% { opacity: 1; transform: translateY(0) scale(0.85); }
+      100% { opacity: 0; transform: translateY(-48px) scale(1.05); }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-terracottaLight selection:text-espresso">
+
+  <!-- Top Sticky Mobile Header & Progress -->
+  <header class="sticky top-0 z-40 bg-oat/95 backdrop-blur-sm border-b border-sand px-4 py-3">
+    <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded-full bg-terracottaLight text-terracotta font-serif font-semibold text-sm border border-terracotta/30" id="stepBadge">1</span>
+        <div>
+          <p class="text-[11px] font-mono uppercase tracking-wider text-cocoa leading-none" id="stepLabel">Bab 1 dari 5</p>
+          <p class="text-xs font-semibold text-espresso mt-0.5" id="stepTitleTop">Bendera Putih Darurat</p>
+        </div>
+      </div>
+
+      <!-- Progress Dots -->
+      <div class="flex items-center gap-1.5" aria-label="Progress Alur">
+        <button type="button" id="navDot1" class="w-5 h-2 rounded-full bg-terracotta transition-all duration-300" title="Bab 1"></button>
+        <button type="button" id="navDot2" class="w-2 h-2 rounded-full bg-sand transition-all duration-300" title="Bab 2"></button>
+        <button type="button" id="navDot3" class="w-2 h-2 rounded-full bg-sand transition-all duration-300" title="Bab 3"></button>
+        <button type="button" id="navDot4" class="w-2 h-2 rounded-full bg-sand transition-all duration-300" title="Bab 4"></button>
+        <button type="button" id="navDot5" class="w-2 h-2 rounded-full bg-sand transition-all duration-300" title="Bab 5"></button>
+      </div>
+
+      <!-- Sound Toggle -->
+      <button type="button" id="soundToggleBtn" class="flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-linen border border-sand text-xs font-medium text-espresso hover:bg-sand/50 transition" aria-label="Toggle Suara Efek">
+        <span id="soundIcon">🔊</span>
+        <span id="soundText" class="text-[11px]">Suara</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Mobile Container -->
+  <main class="flex-1 w-full max-w-md mx-auto px-4 py-5 flex flex-col justify-center">
+
+    <!-- ==========================================
+         BAB 1: BENDERA PUTIH & DETEKTOR NGAMBEK
+    =========================================== -->
+    <section id="step1" class="step-section active">
+      <div class="paper-card rounded-3xl p-5 sm:p-6 relative overflow-hidden">
+        <!-- Stamp Badge -->
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-butterLight border border-butter text-[11px] font-mono font-medium text-espresso">
+            <span class="w-2 h-2 rounded-full bg-terracotta animate-ping"></span>
+            SURAT DARURAT BUAT SAYANG
+          </span>
+          <span class="text-[11px] font-mono text-cocoa">No. 01/MGB-MGBT</span>
+        </div>
+
+        <!-- Animated Cute Bear Holding White Flag SVG -->
+        <div class="my-3 flex flex-col items-center justify-center bg-linen/70 rounded-2xl p-4 border border-sand relative">
+          <svg class="w-40 h-36 animate-float" viewBox="0 0 200 170" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Soft Shadow -->
+            <ellipse cx="100" cy="155" rx="52" ry="8" fill="#E2D9C5"/>
+            <!-- White Flag Pole & Waving Flag -->
+            <g class="animate-flag" style="transform-origin: 142px 115px;">
+              <line x1="142" y1="120" x2="152" y2="28" stroke="#6E6259" stroke-width="4" stroke-linecap="round"/>
+              <path d="M152 30 C168 26, 178 38, 192 33 L188 64 C174 68, 165 56, 149 62 Z" fill="#FFFFFF" stroke="#2C2520" stroke-width="2.5"/>
+              <text x="157" y="50" fill="#C8765A" font-size="9" font-family="Plus Jakarta Sans" font-weight="700">DAMAI</text>
+            </g>
+            <!-- Cute Character Ears -->
+            <circle cx="68" cy="52" r="16" fill="#D7B399" stroke="#2C2520" stroke-width="3"/>
+            <circle cx="68" cy="52" r="8" fill="#DF9A8C"/>
+            <circle cx="126" cy="52" r="16" fill="#D7B399" stroke="#2C2520" stroke-width="3"/>
+            <circle cx="126" cy="52" r="8" fill="#DF9A8C"/>
+            <!-- Body -->
+            <path d="M62 115 C62 94, 132 94, 132 115 L136 148 C136 152, 58 152, 58 148 Z" fill="#C8765A" stroke="#2C2520" stroke-width="3"/>
+            <!-- Scarf -->
+            <path d="M68 106 Q97 118 126 106 L122 120 Q97 128 72 120 Z" fill="#FAF1D8" stroke="#2C2520" stroke-width="2.5"/>
+            <!-- Head -->
+            <rect x="56" y="48" width="82" height="64" rx="32" fill="#E5C5AC" stroke="#2C2520" stroke-width="3"/>
+            <!-- Blush cheeks -->
+            <ellipse cx="72" cy="86" rx="7" ry="4.5" fill="#DF9A8C"/>
+            <ellipse cx="122" cy="86" rx="7" ry="4.5" fill="#DF9A8C"/>
+            <!-- Pleasing Puppy Eyes -->
+            <circle cx="80" cy="76" r="5.5" fill="#2C2520"/>
+            <circle cx="78" cy="74" r="2" fill="#FFFFFF"/>
+            <circle cx="114" cy="76" r="5.5" fill="#2C2520"/>
+            <circle cx="112" cy="74" r="2" fill="#FFFFFF"/>
+            <!-- Worried cute eyebrows -->
+            <path d="M72 66 Q80 63 85 67" stroke="#2C2520" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M122 66 Q114 63 109 67" stroke="#2C2520" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- Snout & pleading mouth -->
+            <ellipse cx="97" cy="84" rx="11" ry="8" fill="#FBF8F3" stroke="#2C2520" stroke-width="2.5"/>
+            <ellipse cx="97" cy="81" rx="4" ry="2.8" fill="#2C2520"/>
+            <path d="M93 87 Q97 84 101 87" stroke="#2C2520" stroke-width="2" stroke-linecap="round"/>
+            <!-- Sweat drop -->
+            <path d="M133 58 C133 58, 138 65, 138 68 C138 71, 135.5 73, 133 73 C130.5 73, 128 71, 128 68 C128 65, 133 58, 133 58 Z" fill="#98C1D9" stroke="#2C2520" stroke-width="2"/>
+            <!-- Hands holding flag & heart -->
+            <circle cx="64" cy="126" r="9" fill="#E5C5AC" stroke="#2C2520" stroke-width="2.5"/>
+            <circle cx="140" cy="118" r="9" fill="#E5C5AC" stroke="#2C2520" stroke-width="2.5"/>
+          </svg>
+          <span class="mt-1 text-xs font-medium text-cocoa italic">
+            "Permisi Sayang... aku bawa bendera putih nih 🏳️"
+          </span>
+        </div>
+
+        <h1 class="font-serif text-2xl sm:text-[26px] font-semibold text-espresso leading-snug text-center">
+          Halo Sayangku, jangan di-close dulu yaa..
+        </h1>
+        <p class="mt-2.5 text-sm text-cocoa leading-relaxed text-center">
+          Aku tahu sekarang kamu kemungkinan lagi sebel—tapi sebel yang <span class="font-semibold text-espresso underline decoration-terracotta decoration-wavy underline-offset-4">marahnya lucu banget</span> gara-gara aku ledekin barusan.
+        </p>
+
+        <!-- Interactive Mood Check -->
+        <div class="mt-5 paper-card-soft rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <label for="moodRange" class="text-xs font-semibold uppercase tracking-wide text-espresso">
+              Cek Suhu Ngambek Kamu Sekarang:
+            </label>
+            <span id="moodBadge" class="text-xs font-mono font-semibold px-2 py-0.5 rounded-md bg-terracottaLight text-terracotta">
+              Level 3: Ngambek Gemes 😤🤏
+            </span>
+          </div>
+          <input
+            id="moodRange"
+            type="range"
+            min="1"
+            max="4"
+            value="3"
+            class="w-full accent-terracotta cursor-pointer h-2 bg-sand rounded-lg"
+          />
+          <div class="flex justify-between text-[11px] text-cocoa font-mono mt-1">
+            <span>1. Biasa</span>
+            <span>2. Cemberut</span>
+            <span>3. Ngambek Lucu</span>
+            <span>4. Mode Singa!</span>
+          </div>
+          <p id="moodResponseText" class="mt-2.5 text-xs text-espresso bg-white/80 rounded-xl p-2.5 border border-sand/80 leading-relaxed">
+            💬 <em>"Iya kelihatan dari jauh pipinya agak gembung dikit karena sebel aku ledekin..."</em>
+          </p>
+        </div>
+
+        <button
+          type="button"
+          id="toStep2Btn"
+          class="tactile-btn mt-5 w-full py-3.5 px-5 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm flex items-center justify-center gap-2"
+        >
+          <span>Buka Berkas Perkara</span>
+          <span>→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BAB 2: REKONSTRUKSI TKP (CHAT & BEDAH KATA)
+    =========================================== -->
+    <section id="step2" class="step-section">
+      <div class="paper-card rounded-3xl p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sageLight border border-sage/40 text-[11px] font-mono font-medium text-espresso">
+            🔍 REKONSTRUKSI TKP CHAT
+          </span>
+          <span class="text-[11px] font-mono text-cocoa">Bukti #02</span>
+        </div>
+
+        <h2 class="font-serif text-xl sm:text-2xl font-semibold text-espresso leading-snug">
+          Tragedi Satu Huruf: <span class="text-terracotta">Menggabut</span> vs <span class="text-sage">Mengebut</span>
+        </h2>
+        <p class="mt-1 text-xs sm:text-sm text-cocoa leading-relaxed">
+          Mari kita putar ulang kejadian kenapa aku sampai khilaf ngeledekin kamu:
+        </p>
+
+        <!-- Simulated Mobile Chat Window -->
+        <div class="mt-4 bg-linen rounded-2xl p-3.5 border border-sand space-y-3" id="chatContainer">
+          <!-- Chat Header -->
+          <div class="flex items-center justify-between pb-2.5 border-b border-sand/80">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-full bg-terracottaLight border border-terracotta/40 flex items-center justify-center text-sm">
+                🤍
+              </div>
+              <div>
+                <p class="text-xs font-bold text-espresso leading-none">Sayangku ✨</p>
+                <p class="text-[10px] text-sage font-medium mt-0.5">● Online (Sambil pegang HP)</p>
+              </div>
+            </div>
+            <button
+              type="button"
+              id="replayChatBtn"
+              class="text-[11px] font-mono px-2.5 py-1 rounded-lg bg-white border border-sand text-espresso hover:bg-oat transition"
+            >
+              ↻ Putar Ulang
+            </button>
+          </div>
+
+          <!-- Message 1: Aku -->
+          <div id="chatMsg1" class="flex flex-col items-end">
+            <div class="max-w-[82%] bg-espresso text-oat rounded-2xl rounded-tr-sm px-3.5 py-2.5 text-xs sm:text-sm shadow-sm">
+              <p>Sayang, aku lagi <span class="underline decoration-butter font-semibold">menggabut</span> nih...</p>
+            </div>
+            <span class="text-[10px] font-mono text-cocoa mt-1">Maksud aku: Lagi santai / gabut 🛋️</span>
+          </div>
+
+          <!-- Brain Optical Illusion Box -->
+          <div id="chatIllusion" class="bg-butterLight/90 border border-butter rounded-xl p-2.5 text-center my-1">
+            <p class="text-[11px] font-mono uppercase tracking-wider text-cocoa">✨ Yang Terbaca Oleh Mata Sayang ✨</p>
+            <div class="mt-1 flex items-center justify-center gap-2 font-mono text-xs sm:text-sm font-bold">
+              <span id="wordMorphLeft" class="px-2 py-0.5 rounded bg-white border border-sand text-cocoa line-through">menggabut</span>
+              <span>➔</span>
+              <span id="wordMorphRight" class="px-2 py-0.5 rounded bg-terracotta text-white animate-pulse-soft">mengebut 🛵💨</span>
+            </div>
+          </div>
+
+          <!-- Message 2: Sayang -->
+          <div id="chatMsg2" class="flex flex-col items-start">
+            <div class="max-w-[88%] bg-white border-2 border-terracotta rounded-2xl rounded-tl-sm px-3.5 py-2.5 text-xs sm:text-sm shadow-sm relative">
+              <span class="absolute -top-2.5 right-2 bg-terracotta text-white text-[9px] font-mono px-1.5 py-0.5 rounded-full">
+                CHAT PALING LUCU!
+              </span>
+              <p class="font-bold text-espresso text-sm sm:text-base mt-0.5">
+                "janan mengebutt dong sayang"
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-terracotta font-medium mt-1">
+              Ada typo "janan" + "mengebutt" double T karena panik khawatir 🥺
+            </span>
+          </div>
+
+          <!-- Message 3: Aku (The Mistake) -->
+          <div id="chatMsg3" class="flex flex-col items-end">
+            <div class="max-w-[85%] bg-terracottaLight border border-terracotta/40 text-espresso rounded-2xl rounded-tr-sm px-3.5 py-2 text-xs">
+              <p class="italic text-cocoa">
+                *Aku malah ketawa & ngeledekin gara-gara kamu salah baca menggabut jadi mengebut...* 🤦‍♂️
+              </p>
+            </div>
+            <span class="text-[10px] font-mono text-cocoa mt-1">Status sekarang: Kena marah lucu 😾</span>
+          </div>
+        </div>
+
+        <!-- Interactive Toggle: Bedah Makna -->
+        <div class="mt-4 paper-card-soft rounded-2xl p-3.5">
+          <p class="text-xs font-semibold text-espresso mb-2 text-center">
+            Klik buat bandingin yang ada di pikiran kita:
+          </p>
+          <div class="grid grid-cols-2 gap-2">
+            <button
+              type="button"
+              id="tabMenggabutBtn"
+              class="py-2 px-3 rounded-xl text-xs font-semibold border transition bg-espresso text-white border-espresso"
+            >
+              🛋️ Menggabut (Aku)
+            </button>
+            <button
+              type="button"
+              id="tabMengebutBtn"
+              class="py-2 px-3 rounded-xl text-xs font-semibold border transition bg-white text-espresso border-sand"
+            >
+              🛵 Mengebut (Kamu)
+            </button>
+          </div>
+          <div id="meaningBox" class="mt-2.5 bg-white rounded-xl p-3 border border-sand text-xs text-espresso leading-relaxed">
+            <strong>Meng-ga-but (Kata Kerja Santai):</strong> Rebahan tak berdaya, bengong nungguin chat dari kamu, kecepatan 0 km/jam di kasur.
+          </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="mt-5 flex gap-2.5">
+          <button
+            type="button"
+            id="backToStep1Btn"
+            class="tactile-btn-secondary px-4 py-3.5 rounded-2xl bg-linen text-espresso font-semibold text-xs border border-sand"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            id="toStep3Btn"
+            class="tactile-btn flex-1 py-3.5 px-4 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm flex items-center justify-center gap-2"
+          >
+            <span>Balas Dendam Gemes Dulu</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BAB 3: MINI GAME "REM KECEPATAN NGELEDEK"
+    =========================================== -->
+    <section id="step3" class="step-section">
+      <div class="paper-card rounded-3xl p-5 sm:p-6" id="gameCard">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-terracottaLight border border-terracotta/30 text-[11px] font-mono font-medium text-terracotta">
+            🎮 SESI HUKUMAN GEMES
+          </span>
+          <span class="text-[11px] font-mono text-cocoa" id="tapCountBadge">0 / 5 Rem</span>
+        </div>
+
+        <h2 class="font-serif text-xl sm:text-2xl font-semibold text-espresso leading-snug">
+          "Janan Mengebutt Dong Sayang!"
+        </h2>
+        <p class="mt-1 text-xs sm:text-sm text-cocoa leading-relaxed">
+          Karena kamu udah bilang jangan mengebut, tapi mulutku malah <strong>mengebut ngeledekin kamu</strong>, sekarang pencet tombol di bawah <strong>5 kali</strong> buat ngerem & nyubit pipi aku biar kapok!
+        </p>
+
+        <!-- Interactive Speedometer & Scooter Stage -->
+        <div id="scooterStage" class="mt-4 bg-linen rounded-2xl p-4 border border-sand relative overflow-hidden flex flex-col items-center">
+          <!-- Speed Gauge Header -->
+          <div class="w-full flex items-center justify-between mb-2">
+            <span class="text-[11px] font-mono text-cocoa uppercase">Kecepatan Ngeledek:</span>
+            <span id="speedValueText" class="text-sm font-mono font-bold text-terracotta">100 km/jam 💨</span>
+          </div>
+
+          <!-- Progress Bar Gauge -->
+          <div class="w-full h-3 bg-white rounded-full border border-sand overflow-hidden p-0.5 mb-4">
+            <div id="speedBarFill" class="h-full bg-terracotta rounded-full transition-all duration-300" style="width: 100%;"></div>
+          </div>
+
+          <!-- Animated SVG Scooter Scene -->
+          <div class="relative w-full h-32 flex items-center justify-center">
+            <!-- Speed lines in background -->
+            <div id="speedLinesGroup" class="absolute inset-0 flex flex-col justify-around py-4 pointer-events-none">
+              <div class="w-12 h-0.5 bg-cocoa/30 rounded animate-speed ml-8"></div>
+              <div class="w-16 h-0.5 bg-cocoa/30 rounded animate-speed ml-44"></div>
+              <div class="w-10 h-0.5 bg-cocoa/30 rounded animate-speed ml-20"></div>
+            </div>
+
+            <!-- Scooter SVG -->
+            <svg id="scooterSvg" class="w-44 h-28 animate-scooter transition-transform duration-300" viewBox="0 0 220 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Road line -->
+              <line x1="15" y1="115" x2="205" y2="115" stroke="#6E6259" stroke-width="3" stroke-linecap="round" stroke-dasharray="10 8"/>
+              <!-- Smoke puffs -->
+              <g id="exhaustPuffs">
+                <circle cx="32" cy="96" r="7" fill="#E6DEC8"/>
+                <circle cx="18" cy="90" r="10" fill="#E6DEC8"/>
+              </g>
+              <!-- Wheels -->
+              <circle cx="66" cy="98" r="15" fill="#2C2520"/>
+              <circle cx="66" cy="98" r="7" fill="#FBF8F3"/>
+              <circle cx="156" cy="98" r="15" fill="#2C2520"/>
+              <circle cx="156" cy="98" r="7" fill="#FBF8F3"/>
+              <!-- Scooter Body (Warm Sage) -->
+              <path d="M50 96 C50 74, 88 74, 96 96 L142 96 L154 56 L138 56" fill="#6E8B7B" stroke="#2C2520" stroke-width="3" stroke-linejoin="round"/>
+              <path d="M134 96 L152 54 L168 78 L168 96 Z" fill="#6E8B7B" stroke="#2C2520" stroke-width="3" stroke-linejoin="round"/>
+              <!-- Seat -->
+              <rect x="64" y="66" width="38" height="10" rx="5" fill="#2C2520"/>
+              <!-- Handlebar & Headlight -->
+              <line x1="146" y1="54" x2="132" y2="48" stroke="#2C2520" stroke-width="4" stroke-linecap="round"/>
+              <circle cx="158" cy="52" r="6" fill="#FAF1D8" stroke="#2C2520" stroke-width="2.5"/>
+              <!-- Rider Character -->
+              <path d="M80 68 C80 48, 110 48, 114 68" fill="#C8765A" stroke="#2C2520" stroke-width="3"/>
+              <!-- Rider Head + Helmet -->
+              <circle cx="102" cy="34" r="18" fill="#E5C5AC" stroke="#2C2520" stroke-width="3"/>
+              <path d="M84 32 C84 16, 120 16, 120 32 Z" fill="#FAF1D8" stroke="#2C2520" stroke-width="3"/>
+              <!-- Rider Face expression -->
+              <circle cx="108" cy="36" r="2.5" fill="#2C2520"/>
+              <ellipse id="riderCheek" cx="101" cy="41" rx="4.5" ry="3" fill="#DF9A8C"/>
+              <path id="riderMouth" d="M105 43 Q110 46 113 42" stroke="#2C2520" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <p id="scooterStatusMsg" class="text-xs font-medium text-espresso text-center bg-white/90 px-3 py-2 rounded-xl border border-sand w-full">
+            🛵 <em>"Hehehe siapa suruh salah baca menggabut jadi mengebut~"</em>
+          </p>
+        </div>
+
+        <!-- Action Buttons for Braking / Cubit -->
+        <div class="mt-4 grid grid-cols-2 gap-2.5">
+          <button
+            type="button"
+            id="brakeTapBtn"
+            class="tactile-btn py-3.5 px-3 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-xs sm:text-sm flex items-center justify-center gap-1.5"
+          >
+            <span>🛑 Tarik Rem!</span>
+          </button>
+          <button
+            type="button"
+            id="pinchTapBtn"
+            class="tactile-btn-secondary py-3.5 px-3 rounded-2xl bg-butterLight hover:bg-butter/60 text-espresso font-semibold text-xs sm:text-sm border border-butter flex items-center justify-center gap-1.5"
+          >
+            <span>🤏 Cubit Pipi Aku!</span>
+          </button>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-5 flex gap-2.5">
+          <button
+            type="button"
+            id="backToStep2Btn"
+            class="tactile-btn-secondary px-4 py-3.5 rounded-2xl bg-linen text-espresso font-semibold text-xs border border-sand"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            id="toStep4Btn"
+            class="tactile-btn flex-1 py-3.5 px-4 rounded-2xl bg-espresso text-oat font-semibold text-sm flex items-center justify-center gap-2"
+          >
+            <span id="toStep4BtnText">Lanjut Baca Permintaan Maafku</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BAB 4: SURAT PENGAKUAN & TEBUSAN
+    =========================================== -->
+    <section id="step4" class="step-section">
+      <div class="paper-card rounded-3xl p-5 sm:p-6">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-butterLight border border-butter text-[11px] font-mono font-medium text-espresso">
+            📜 PENGAKUAN JUJUR
+          </span>
+          <span class="text-[11px] font-mono text-cocoa">Dari: Yang Suka Ngeledek</span>
+        </div>
+
+        <h2 class="font-serif text-xl sm:text-2xl font-semibold text-espresso leading-snug">
+          Maafin Aku Yaa, Sayangku...
+        </h2>
+
+        <!-- Sincere Letter Box -->
+        <div class="mt-3.5 bg-oat rounded-2xl p-4 border border-sand space-y-2.5 text-xs sm:text-sm text-espresso leading-relaxed">
+          <p>
+            Sayang, maafin aku ya tadi udah ngeledekin kamu perkara salah baca chat <strong>"menggabut"</strong> jadi <strong>"mengebut"</strong>.
+          </p>
+          <p>
+            Jujur seratus persen, aku ngeledekin kamu tuh bukan karena mau ngetawain kamu, tapi karena waktu kamu balas:
+          </p>
+          <div class="my-2 px-3.5 py-2.5 bg-white rounded-xl border-l-4 border-terracotta font-serif italic text-sm sm:text-base text-espresso">
+            "janan mengebutt dong sayang"
+          </div>
+          <p>
+            Kalimat itu tuh <strong>gemes banget di mataku!</strong> Padahal aku lagi santai menggabut, eh kamunya langsung refleks perhatian nyuruh jangan ngebut-ngebut sampai hurufnya kepeleset jadi <em>"janan mengebutt"</em>.
+          </p>
+          <p>
+            Aku salah karena bukannya langsung bilang makasih udah dikhawatirin, malah iseng ngeledekin kamu sampai kamu sebel lucu gitu. Maafin aku yaa sayang? 🥺🤍
+          </p>
+        </div>
+
+        <!-- Interactive Compensation Checklist -->
+        <div class="mt-4">
+          <div class="flex items-center justify-between mb-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-cocoa">
+              Pilih Kompensasi Perdamaian (Boleh Centang Semua!):
+            </p>
+            <span id="selectedPactCount" class="text-[11px] font-mono text-terracotta font-semibold">3 dipilih</span>
+          </div>
+
+          <div class="space-y-2" id="pactList">
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-linen/70 border border-sand cursor-pointer hover:bg-linen transition">
+              <input type="checkbox" class="pact-checkbox mt-0.5 accent-terracotta w-4 h-4 rounded" value="Bebas salah baca chat tanpa diledek" checked />
+              <span class="text-xs text-espresso leading-snug">
+                <strong>Hak Imunitas Salah Baca:</strong> Mulai sekarang Sayang bebas salah baca chat apa aja tanpa diledekin.
+              </span>
+            </label>
+
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-linen/70 border border-sand cursor-pointer hover:bg-linen transition">
+              <input type="checkbox" class="pact-checkbox mt-0.5 accent-terracotta w-4 h-4 rounded" value="Traktir jajan / makanan favorit Sayang" checked />
+              <span class="text-xs text-espresso leading-snug">
+                <strong>Pajak Denda Ngeledek:</strong> Ditebus pakai jajan / makanan favorit pilihan Sayang.
+              </span>
+            </label>
+
+            <label class="flex items-start gap-3 p-3 rounded-xl bg-linen/70 border border-sand cursor-pointer hover:bg-linen transition">
+              <input type="checkbox" class="pact-checkbox mt-0.5 accent-terracotta w-4 h-4 rounded" value="Kalimat 'janan mengebutt dong sayang' jadi kalimat kesayangan" checked />
+              <span class="text-xs text-espresso leading-snug">
+                <strong>Penghargaan Kalimat Terlucu:</strong> <em>"janan mengebutt dong sayang"</em> resmi dinobatkan jadi kalimat paling bikin sayang minggu ini.
+              </span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="mt-5 flex gap-2.5">
+          <button
+            type="button"
+            id="backToStep3Btn"
+            class="tactile-btn-secondary px-4 py-3.5 rounded-2xl bg-linen text-espresso font-semibold text-xs border border-sand"
+          >
+            ←
+          </button>
+          <button
+            type="button"
+            id="toStep5Btn"
+            class="tactile-btn flex-1 py-3.5 px-4 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm flex items-center justify-center gap-2"
+          >
+            <span>Ketuk Palu Keputusan</span>
+            <span>→</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         BAB 5: SIDANG KEPUTUSAN & KUPON DAMAI
+    =========================================== -->
+    <section id="step5" class="step-section">
+      <!-- State A: Before Forgiven -->
+      <div id="decisionBox" class="paper-card rounded-3xl p-5 sm:p-6 text-center relative overflow-hidden">
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-sageLight border border-sage/40 text-[11px] font-mono font-medium text-espresso">
+          ⚖️ SIDANG PUTUSAN AKHIR
+        </span>
+
+        <h2 class="mt-3 font-serif text-2xl font-semibold text-espresso">
+          Jadi... Aku Dimaafin Nggak Nih, Sayang?
+        </h2>
+        <p id="pleaSubtext" class="mt-1.5 text-xs sm:text-sm text-cocoa leading-relaxed">
+          Janji nggak bakal mengebut ngeledekin kamu lagi, mending kita menggabut berdua aja yaa 🥺
+        </p>
+
+        <!-- Interactive Button Arena -->
+        <div id="buttonArena" class="mt-5 min-h-[170px] bg-linen/70 rounded-2xl p-4 border border-sand flex flex-col items-center justify-center gap-3 relative overflow-hidden">
+          <button
+            type="button"
+            id="forgiveYesBtn"
+            class="tactile-btn w-full py-4 px-5 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-bold text-sm sm:text-base transition-all duration-300 z-10"
+          >
+            🤍 Iya, Dimaafin Sayang!
+          </button>
+
+          <button
+            type="button"
+            id="forgiveNoBtn"
+            class="tactile-btn-secondary py-2.5 px-4 rounded-xl bg-white text-cocoa font-medium text-xs border border-sand transition-all duration-200"
+          >
+            Masih Ngambek Dikit 😤
+          </button>
+        </div>
+
+        <div class="mt-4 flex justify-start">
+          <button
+            type="button"
+            id="backToStep4Btn"
+            class="text-xs font-mono text-cocoa hover:text-espresso underline"
+          >
+            ← Kembali ke surat janji
+          </button>
+        </div>
+      </div>
+
+      <!-- State B: Forgiven Receipt / Ticket (Hidden until Yes clicked) -->
+      <div id="forgivenReceiptBox" class="hidden paper-card rounded-3xl p-5 sm:p-6 relative overflow-hidden animate-pop">
+        <div class="text-center">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sageLight border border-sage text-xs font-mono font-semibold text-espresso">
+            ✅ RESMI BERSATU KEMBALI
+          </span>
+          <h2 class="mt-2.5 font-serif text-2xl font-semibold text-espresso">
+            Yeay! Makasih Sayangku! 🤍
+          </h2>
+          <p class="mt-1 text-xs sm:text-sm text-cocoa">
+            Senyumnya jangan ditahan lagi yaa, kan udah baikan sekarang~
+          </p>
+        </div>
+
+        <!-- Printable / Screenshot-able Official Ticket -->
+        <div class="mt-4 bg-oat rounded-2xl border-2 border-dashed border-sand p-4 relative">
+          <div class="flex items-center justify-between border-b border-sand pb-2.5">
+            <div>
+              <p class="text-[10px] font-mono uppercase text-cocoa">DOKUMEN PERDAMAIAN RESMI</p>
+              <p class="text-sm font-serif font-bold text-espresso">Kupon Anti-Mengebut Sayang</p>
+            </div>
+            <div class="text-right font-mono text-[10px] text-cocoa">
+              <p id="receiptDate">18 Okt 2026</p>
+              <p>STATUS: LUNAS 🤍</p>
+            </div>
+          </div>
+
+          <div class="py-3 space-y-2 text-xs">
+            <div class="flex justify-between">
+              <span class="text-cocoa">Penerima Maaf:</span>
+              <span class="font-semibold text-espresso">Sayangku Paling Gemes</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-cocoa">Kasus:</span>
+              <span class="font-mono text-[11px] text-espresso">Menggabut ➔ Mengebut</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-cocoa">Suhu Ngambek Awal:</span>
+              <span id="receiptMoodText" class="font-medium text-terracotta">Ngambek Gemes 😤🤏</span>
+            </div>
+            <div class="pt-1.5 border-t border-sand/80">
+              <p class="text-cocoa mb-1">Kompensasi yang Diklaim:</p>
+              <ul id="receiptPactList" class="list-disc list-inside space-y-1 text-[11px] font-medium text-espresso">
+              </ul>
+            </div>
+          </div>
+
+          <div class="pt-2.5 border-t border-sand flex items-center justify-between text-[11px] font-mono text-cocoa">
+            <span>Kode: JNN-MNGBTT-SYG</span>
+            <span>Berlaku Selamanya ∞</span>
+          </div>
+        </div>
+
+        <!-- Custom Reply Message Generator to Copy / Send back -->
+        <div class="mt-4 paper-card-soft rounded-2xl p-3.5">
+          <label for="customReplyInput" class="block text-xs font-semibold text-espresso mb-1.5">
+            Kirim Pesan Balasan Buat Aku:
+          </label>
+          <textarea
+            id="customReplyInput"
+            rows="2"
+            class="w-full rounded-xl bg-white border border-sand p-2.5 text-xs text-espresso focus:outline-none focus:border-terracotta"
+          >Iya udah aku maafin, awas yaa kalau ngeledek lagi! Janan mengebutt dong sayang 🤍😤</textarea>
+
+          <div class="mt-2.5 flex gap-2">
+            <button
+              type="button"
+              id="copyReplyBtn"
+              class="tactile-btn flex-1 py-3 px-4 rounded-xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-xs flex items-center justify-center gap-1.5"
+            >
+              <span>📋 Salin Balasan ke Chat</span>
+            </button>
+            <button
+              type="button"
+              id="replayAllBtn"
+              class="tactile-btn-secondary py-3 px-3.5 rounded-xl bg-white border border-sand text-espresso font-semibold text-xs"
+              title="Ulangi dari awal"
+            >
+              ↻ Ulang
+            </button>
+          </div>
+          <p id="copyToast" class="hidden mt-2 text-center text-[11px] font-mono text-sage font-semibold">
+            ✨ Pesan berhasil disalin! Tinggal paste di chat aku yaa sayang.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Subtle Cozy Footer -->
+  <footer class="w-full max-w-md mx-auto px-4 py-3 text-center">
+    <p class="text-[11px] font-mono text-cocoa">
+      Dibuat khusus dengan tulus (tanpa mengebut) buat Sayang 🤍
+    </p>
+  </footer>
+
+  <!-- Inline Interactive Script -->
+  <script>
+    (function () {
+      // State
+      let currentStep = 1;
+      let soundEnabled = true;
+      let audioCtx = null;
+      let brakeCount = 0;
+      const maxBrakes = 5;
+      let noClickCount = 0;
+
+      const stepIds = ['step1', 'step2', 'step3', 'step4', 'step5'];
+      const navDotIds = ['navDot1', 'navDot2', 'navDot3', 'navDot4', 'navDot5'];
+
+      const stepTitles = {
+        1: 'Bendera Putih Darurat',
+        2: 'Rekonstruksi Menggabut vs Mengebut',
+        3: 'Rem Kecepatan Ngeledek',
+        4: 'Surat Pengakuan & Janji',
+        5: 'Sidang Keputusan Sayang'
+      };
+
+      const moodDescriptions = {
+        1: {
+          badge: 'Level 1: Santai Aja 🙂',
+          text: '💬 "Wah beneran nggak marah nih? Atau jangan-jangan lagi nahan senyum sambil gengsi dikit?"'
+        },
+        2: {
+          badge: 'Level 2: Cemberut Dikit 😒',
+          text: '💬 "Mulai kelihatan nih bibirnya maju 1 senti gara-gara aku ledekin salah baca tadi..."'
+        },
+        3: {
+          badge: 'Level 3: Ngambek Gemes 😤🤏',
+          text: '💬 "Iya kelihatan dari jauh pipinya agak gembung dikit karena sebel aku ledekin..."'
+        },
+        4: {
+          badge: 'Level 4: Mode Maung Lucu! 😾🔥',
+          text: '💬 "Ampun Sayang!! Aku langsung angkat bendera putih tinggi-tinggi, jangan dicakar dulu yaa!"'
+        }
+      };
+
+      // Web Audio API cute synthesizer (no external mp3 required)
+      function playTone(type) {
+        if (!soundEnabled) return;
+        try {
+          if (!audioCtx) {
+            const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+            if (AudioContextClass) audioCtx = new AudioContextClass();
+          }
+          if (!audioCtx) return;
+          if (audioCtx.state === 'suspended') audioCtx.resume();
+
+          const now = audioCtx.currentTime;
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          if (type === 'pop') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(420, now);
+            osc.frequency.exponentialRampToValueAtTime(660, now + 0.08);
+            gain.gain.setValueAtTime(0.12, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
+            osc.start(now);
+            osc.stop(now + 0.09);
+          } else if (type === 'brake') {
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(340, now);
+            osc.frequency.exponentialRampToValueAtTime(190, now + 0.14);
+            gain.gain.setValueAtTime(0.15, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+            osc.start(now);
+            osc.stop(now + 0.15);
+          } else if (type === 'dodge') {
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(520, now);
+            osc.frequency.exponentialRampToValueAtTime(300, now + 0.1);
+            gain.gain.setValueAtTime(0.1, now);
+            gain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+            osc.start(now);
+            osc.stop(now + 0.11);
+          } else if (type === 'celebrate') {
+            const notes = [523.25, 659.25, 783.99, 1046.5];
+            notes.forEach((freq, idx) => {
+              const o = audioCtx.createOscillator();
+              const g = audioCtx.createGain();
+              o.connect(g);
+              g.connect(audioCtx.destination);
+              o.type = 'triangle';
+              o.frequency.setValueAtTime(freq, now + idx * 0.09);
+              g.gain.setValueAtTime(0.14, now + idx * 0.09);
+              g.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.25);
+              o.start(now + idx * 0.09);
+              o.stop(now + idx * 0.09 + 0.26);
+            });
+          }
+        } catch (err) {
+          // Ignore audio context restrictions
+        }
+      }
+
+      // Navigation handler
+      function goToStep(stepNum) {
+        currentStep = stepNum;
+        playTone('pop');
+
+        stepIds.forEach((secId, idx) => {
+          const i = idx + 1;
+          const sec = document.getElementById(secId);
+          const dot = document.getElementById(navDotIds[idx]);
+          if (sec) {
+            if (i === stepNum) {
+              sec.classList.add('active');
+            } else {
+              sec.classList.remove('active');
+            }
+          }
+          if (dot) {
+            if (i === stepNum) {
+              dot.className = 'w-6 h-2 rounded-full bg-terracotta transition-all duration-300';
+            } else if (i < stepNum) {
+              dot.className = 'w-2.5 h-2 rounded-full bg-sage transition-all duration-300';
+            } else {
+              dot.className = 'w-2 h-2 rounded-full bg-sand transition-all duration-300';
+            }
+          }
+        });
+
+        document.getElementById('stepBadge').textContent = String(stepNum);
+        document.getElementById('stepLabel').textContent = 'Bab ' + stepNum + ' dari 5';
+        document.getElementById('stepTitleTop').textContent = stepTitles[stepNum] || '';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      // Sound Toggle
+      const soundToggleBtn = document.getElementById('soundToggleBtn');
+      soundToggleBtn.addEventListener('click', function () {
+        soundEnabled = !soundEnabled;
+        document.getElementById('soundIcon').textContent = soundEnabled ? '🔊' : '🔇';
+        document.getElementById('soundText').textContent = soundEnabled ? 'Suara' : 'Bisu';
+        if (soundEnabled) playTone('pop');
+      });
+
+      // Top progress dots click
+      navDotIds.forEach((dotId, idx) => {
+        const dotBtn = document.getElementById(dotId);
+        if (dotBtn) {
+          dotBtn.addEventListener('click', function () {
+            goToStep(idx + 1);
+          });
+        }
+      });
+
+      // Step 1: Mood Range Slider
+      const moodRange = document.getElementById('moodRange');
+      const moodBadge = document.getElementById('moodBadge');
+      const moodResponseText = document.getElementById('moodResponseText');
+
+      moodRange.addEventListener('input', function () {
+        const val = Number(moodRange.value);
+        const info = moodDescriptions[val] || moodDescriptions[3];
+        moodBadge.textContent = info.badge;
+        moodResponseText.innerHTML = '💬 <em>' + info.text.replace(/^💬\s*/, '') + '</em>';
+        playTone('pop');
+      });
+
+      // Step 2: Replay Chat Animation & Bedah Kata Toggle
+      const replayChatBtn = document.getElementById('replayChatBtn');
+      function animateChatReplay() {
+        playTone('pop');
+        const items = ['chatMsg1', 'chatIllusion', 'chatMsg2', 'chatMsg3'];
+        items.forEach((id, idx) => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          el.style.opacity = '0';
+          el.style.transform = 'translateY(10px)';
+          setTimeout(() => {
+            el.style.transition = 'all 0.35s ease';
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            playTone('pop');
+          }, idx * 320);
+        });
+      }
+      replayChatBtn.addEventListener('click', animateChatReplay);
+
+      const tabMenggabutBtn = document.getElementById('tabMenggabutBtn');
+      const tabMengebutBtn = document.getElementById('tabMengebutBtn');
+      const meaningBox = document.getElementById('meaningBox');
+
+      tabMenggabutBtn.addEventListener('click', function () {
+        playTone('pop');
+        tabMenggabutBtn.className = 'py-2 px-3 rounded-xl text-xs font-semibold border transition bg-espresso text-white border-espresso';
+        tabMengebutBtn.className = 'py-2 px-3 rounded-xl text-xs font-semibold border transition bg-white text-espresso border-sand';
+        meaningBox.innerHTML = '<strong>Meng-ga-but (Kata Kerja Santai):</strong> Rebahan tak berdaya, bengong nungguin kabar dari kamu, kecepatan 0 km/jam di atas kasur.';
+      });
+
+      tabMengebutBtn.addEventListener('click', function () {
+        playTone('pop');
+        tabMengebutBtn.className = 'py-2 px-3 rounded-xl text-xs font-semibold border transition bg-terracotta text-white border-terracotta';
+        tabMenggabutBtn.className = 'py-2 px-3 rounded-xl text-xs font-semibold border transition bg-white text-espresso border-sand';
+        meaningBox.innerHTML = '<strong>Me-nge-but (Versi Mata Sayang):</strong> Kebut-kebutan di jalanan sampai bikin kamu spontan panik ngetik <em>"janan mengebutt dong sayang"</em> 🥺🛵💨';
+      });
+
+      // Step 3: Mini-game Brake / Pinch
+      const scooterStage = document.getElementById('scooterStage');
+      const speedValueText = document.getElementById('speedValueText');
+      const speedBarFill = document.getElementById('speedBarFill');
+      const tapCountBadge = document.getElementById('tapCountBadge');
+      const scooterStatusMsg = document.getElementById('scooterStatusMsg');
+      const scooterSvg = document.getElementById('scooterSvg');
+      const speedLinesGroup = document.getElementById('speedLinesGroup');
+
+      const brakeReactions = [
+        { speed: 80, msg: '🛑 "Eh! Rem pertama ditarik! Kecepatan ngeledek turun jadi 80 km/jam!"', float: 'Ciittt! 🛑' },
+        { speed: 60, msg: '🤏 "Aduh! Pipi aku dicubit! Iya-iya nggak berani ngeledek lagi!"', float: 'Aduh Sayang! 🥺' },
+        { speed: 40, msg: '🛑 "Rem makin pakem! Sekarang tinggal 40 km/jam, udah mulai kalem!"', float: 'Ampun Sayang! 🏳️' },
+        { speed: 20, msg: '🤏 "Satu kali lagi remnya biar motor ngeledeknya berhenti total!"', float: 'Janan marah yaa 🤍' },
+        { speed: 0,  msg: '✨ "BERHENTI TOTAL (0 km/jam)! Sekarang aku resmi patuh kata Sayang: nggak mengebut & nggak ngeledek lagi!"', float: 'Kapok 100%! 🤍' }
+      ];
+
+      function spawnFloatingWord(text) {
+        const span = document.createElement('span');
+        span.className = 'floating-word px-2.5 py-1 rounded-full bg-espresso text-oat text-xs font-semibold shadow';
+        span.textContent = text;
+        const randomX = Math.floor(Math.random() * 120) - 60;
+        span.style.left = 'calc(50% + ' + randomX + 'px)';
+        span.style.top = '45%';
+        scooterStage.appendChild(span);
+        setTimeout(() => {
+          if (span.parentNode) span.parentNode.removeChild(span);
+        }, 950);
+      }
+
+      function handleGameInteraction(kind) {
+        playTone('brake');
+        if (brakeCount < maxBrakes) {
+          brakeCount++;
+        }
+        const idx = Math.min(brakeCount - 1, brakeReactions.length - 1);
+        const current = brakeReactions[idx];
+
+        tapCountBadge.textContent = brakeCount + ' / ' + maxBrakes + ' Rem';
+        speedValueText.textContent = current.speed + ' km/jam ' + (current.speed === 0 ? '🛑' : '💨');
+        speedBarFill.style.width = current.speed + '%';
+        scooterStatusMsg.innerHTML = current.msg;
+
+        spawnFloatingWord(kind === 'pinch' ? 'Cubit Gemes! 🤏' : current.float);
+
+        // Shake card feedback
+        const gameCard = document.getElementById('gameCard');
+        gameCard.classList.remove('shake-trigger');
+        void gameCard.offsetWidth;
+        gameCard.classList.add('shake-trigger');
+
+        if (current.speed === 0) {
+          speedBarFill.className = 'h-full bg-sage rounded-full transition-all duration-300';
+          speedValueText.className = 'text-sm font-mono font-bold text-sage';
+          scooterSvg.classList.remove('animate-scooter');
+          speedLinesGroup.style.display = 'none';
+          document.getElementById('toStep4Btn').className = 'tactile-btn flex-1 py-3.5 px-4 rounded-2xl bg-terracotta hover:bg-terracottaDark text-white font-semibold text-sm flex items-center justify-center gap-2';
+        }
+      }
+
+      document.getElementById('brakeTapBtn').addEventListener('click', function () {
+        handleGameInteraction('brake');
+      });
+      document.getElementById('pinchTapBtn').addEventListener('click', function () {
+        handleGameInteraction('pinch');
+      });
+
+      // Step 4: Checkboxes count update
+      const pactCheckboxes = document.querySelectorAll('.pact-checkbox');
+      const selectedPactCount = document.getElementById('selectedPactCount');
+      function updatePactCount() {
+        let count = 0;
+        pactCheckboxes.forEach(cb => { if (cb.checked) count++; });
+        selectedPactCount.textContent = count + ' dipilih';
+      }
+      pactCheckboxes.forEach(cb => {
+        cb.addEventListener('change', function () {
+          playTone('pop');
+          updatePactCount();
+        });
+      });
+
+      // Step 5: Forgive Yes vs Dodge No Button
+      const forgiveYesBtn = document.getElementById('forgiveYesBtn');
+      const forgiveNoBtn = document.getElementById('forgiveNoBtn');
+      const pleaSubtext = document.getElementById('pleaSubtext');
+
+      const noButtonStages = [
+        'Eits tombolnya licin! 😜',
+        'Janan pencet yang ini dong sayang 🥺',
+        'Aku udah ngerem 0 km/jam lho!',
+        'Maafin dong sayangkuuu 🤍',
+        'Tombol ngambeknya mulai ciut nih...',
+        'Klik yang atas aja yaa sayang 👆✨'
+      ];
+
+      forgiveNoBtn.addEventListener('click', function () {
+        playTone('dodge');
+        const msg = noButtonStages[noClickCount % noButtonStages.length];
+        noClickCount++;
+
+        forgiveNoBtn.textContent = msg;
+        const randomX = Math.floor(Math.random() * 56) - 28;
+        const randomY = Math.floor(Math.random() * 24) - 12;
+        const scaleNo = Math.max(0.75, 1 - noClickCount * 0.05);
+        forgiveNoBtn.style.transform = 'translate(' + randomX + 'px, ' + randomY + 'px) scale(' + scaleNo + ')';
+
+        const scaleYes = Math.min(1.12, 1 + noClickCount * 0.025);
+        forgiveYesBtn.style.transform = 'scale(' + scaleYes + ')';
+        pleaSubtext.textContent = 'Tuh kan tombol "Masih Ngambek"-nya aja nggak tega kalau kamu marah lama-lama 🥺';
+      });
+
+      forgiveYesBtn.addEventListener('click', function () {
+        playTone('celebrate');
+
+        // Populate Receipt
+        const now = new Date();
+        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+        document.getElementById('receiptDate').textContent =
+          now.getDate() + ' ' + months[now.getMonth()] + ' ' + now.getFullYear();
+
+        const moodVal = Number(moodRange.value);
+        document.getElementById('receiptMoodText').textContent =
+          (moodDescriptions[moodVal] || moodDescriptions[3]).badge.replace(/^Level \d:\s*/, '');
+
+        const receiptPactList = document.getElementById('receiptPactList');
+        receiptPactList.innerHTML = '';
+        let anyChecked = false;
+        pactCheckboxes.forEach(cb => {
+          if (cb.checked) {
+            anyChecked = true;
+            const li = document.createElement('li');
+            li.textContent = cb.value;
+            receiptPactList.appendChild(li);
+          }
+        });
+        if (!anyChecked) {
+          const li = document.createElement('li');
+          li.textContent = 'Peluk & disayang tanpa batas waktu';
+          receiptPactList.appendChild(li);
+        }
+
+        document.getElementById('decisionBox').classList.add('hidden');
+        document.getElementById('forgivenReceiptBox').classList.remove('hidden');
+
+        // Warm paper confetti burst
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 70,
+            spread: 65,
+            origin: { y: 0.6 },
+            colors: ['#C8765A', '#6E8B7B', '#E8C574', '#DF9A8C', '#2C2520']
+          });
+        }
+      });
+
+      // Copy Reply Message
+      const copyReplyBtn = document.getElementById('copyReplyBtn');
+      const customReplyInput = document.getElementById('customReplyInput');
+      const copyToast = document.getElementById('copyToast');
+
+      copyReplyBtn.addEventListener('click', function () {
+        playTone('pop');
+        const textToCopy = customReplyInput.value;
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).catch(() => {
+            customReplyInput.select();
+            document.execCommand('copy');
+          });
+        } else {
+          customReplyInput.select();
+          document.execCommand('copy');
+        }
+        copyToast.classList.remove('hidden');
+        copyReplyBtn.innerHTML = '<span>✅ Berhasil Disalin!</span>';
+        setTimeout(() => {
+          copyReplyBtn.innerHTML = '<span>📋 Salin Balasan ke Chat</span>';
+        }, 2500);
+      });
+
+      // Replay All
+      document.getElementById('replayAllBtn').addEventListener('click', function () {
+        document.getElementById('decisionBox').classList.remove('hidden');
+        document.getElementById('forgivenReceiptBox').classList.add('hidden');
+        noClickCount = 0;
+        forgiveNoBtn.style.transform = 'none';
+        forgiveNoBtn.textContent = 'Masih Ngambek Dikit 😤';
+        forgiveYesBtn.style.transform = 'none';
+        goToStep(1);
+      });
+
+      // Step Navigation Buttons
+      document.getElementById('toStep2Btn').addEventListener('click', () => goToStep(2));
+      document.getElementById('backToStep1Btn').addEventListener('click', () => goToStep(1));
+      document.getElementById('toStep3Btn').addEventListener('click', () => goToStep(3));
+      document.getElementById('backToStep2Btn').addEventListener('click', () => goToStep(2));
+      document.getElementById('toStep4Btn').addEventListener('click', () => goToStep(4));
+      document.getElementById('backToStep3Btn').addEventListener('click', () => goToStep(3));
+      document.getElementById('toStep5Btn').addEventListener('click', () => goToStep(5));
+      document.getElementById('backToStep4Btn').addEventListener('click', () => goToStep(4));
+    })();
+  </script>
+</body>
+</html>
